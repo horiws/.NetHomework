@@ -1,0 +1,10 @@
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\bin\Debug\hw1-2.exe.config
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\bin\Debug\hw1-2.exe
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\bin\Debug\hw1-2.pdb
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\obj\Debug\hw1-2.csprojAssemblyReference.cache
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\obj\Debug\hw1_2.Form1.resources
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\obj\Debug\hw1_2.Properties.Resources.resources
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\obj\Debug\hw1-2.csproj.GenerateResource.cache
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\obj\Debug\hw1-2.csproj.CoreCompileInputs.cache
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\obj\Debug\hw1-2.exe
+D:\whu\sophomore2\C#\source\repos\hw1-2\hw1-2\obj\Debug\hw1-2.pdb
