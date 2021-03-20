@@ -1,0 +1,7 @@
+D:\whu\sophomore2\C#\source\ex2-1\ex2-1\bin\Debug\ex2-1.exe.config
+D:\whu\sophomore2\C#\source\ex2-1\ex2-1\bin\Debug\ex2-1.exe
+D:\whu\sophomore2\C#\source\ex2-1\ex2-1\bin\Debug\ex2-1.pdb
+D:\whu\sophomore2\C#\source\ex2-1\ex2-1\obj\Debug\ex2-1.csprojAssemblyReference.cache
+D:\whu\sophomore2\C#\source\ex2-1\ex2-1\obj\Debug\ex2-1.csproj.CoreCompileInputs.cache
+D:\whu\sophomore2\C#\source\ex2-1\ex2-1\obj\Debug\ex2-1.exe
+D:\whu\sophomore2\C#\source\ex2-1\ex2-1\obj\Debug\ex2-1.pdb
