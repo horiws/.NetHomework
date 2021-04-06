@@ -51,16 +51,13 @@ namespace Homework5
                             where c.Name == name
                             select c;
                
-                if (cargo == null)
+                if (cargo.Count() < 1)
                 {
                     new NotFoundException($"The cargo {name} was not found.");
                 }
                 else
                 {
-                    //how to transfer IEnumerable<Cargo> cargo to Cargo cargo
-                    /*Cargo cargo1 = cargo as Cargo;
-
-                    cargo1.Quantity = newQuantity;*/
+                    //how to transfer IEnumerable<Cargo> cargo into Cargo cargo
                     foreach(Cargo c in cargo)
                     {
                         c.Quantity = newQuantity;
@@ -80,7 +77,8 @@ namespace Homework5
             return (List<Order>)order;
         }
 
-        //Through the parameter 'searchItem' to decide whether to search the client's name or the cargo's name
+        //Through the parameter 'searchItem' to decide
+        //whether to search the client's name or the cargo's name
         public List<Order> Search(string searchItem, string name)
         {
             switch (searchItem)
@@ -91,17 +89,17 @@ namespace Homework5
                     return (List<Order>)order;
 
                 case "cargo":
-                    List<Order> orderList = null;
+                    List<Order> tempOrder = null;
                     foreach (Order o in orders)
                     {
                         var cargo = o._OrderDetails._Cargo.Where(c => c.Name == name);
-                        if (cargo != null)
+                        if (cargo.Count() >= 1)
                         {
-                            orderList.Add(o);
+                            tempOrder.Add(o);
                         }
                     }
-                    orderList.OrderBy(o => o._OrderDetails.GetAmount());
-                    return orderList;
+                    tempOrder.OrderBy(o => o._OrderDetails.GetAmount());
+                    return tempOrder;
 
                 default:
                     return null;
@@ -114,20 +112,6 @@ namespace Homework5
                 OrderBy(o => o._OrderDetails.GetAmount());
             return (List<Order>)order;
         }
-
-        /*public List<Order> Search(string cargoName)
-        {
-            List<Order> orderList = null;
-            foreach(Order order in orders)
-            {
-                var cargo = order._OrderDetails._Cargo.Where(c => c.Name == cargoName);
-                if(cargo != null)
-                {
-                    orderList.Add(order);
-                }
-            }
-            return orderList;
-        }*/
     }
 
     public class NotFoundException : ApplicationException
