@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Homework5
 {
-    class Cargo
+    public class Cargo
     {
         private string name;
         private int quantity;
@@ -16,6 +16,7 @@ namespace Homework5
         public int Quantity { get => quantity; set => quantity = value; }
         public double Price { get => price; set => price = value; }
 
+        public Cargo() { }
         public Cargo(string name, int quantity, double price)
         {
             this.name = name;

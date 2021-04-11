@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace Homework5
 {
-    class Client
+    public class Client
     {
         private string name;
 
         public string Name { get => name; set => name = value; }
+
+        public Client() { }
         public Client(string clientName)
         {
             this.name = clientName;

@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace Homework5
 {
-    class Order: IComparable
+    public class Order: IComparable
     {
-        private int no = 0;                       //default value
+        private int id = 0;                       //default value
         private string createTime;
         private Client client;
         private OrderDetails orderDetails;
 
-        public int NO { get => no; set => no = value; }
+        public int ID { get => id; set => id = value; }
         public Client _Client { get => client; set => client = value; }
         public OrderDetails _OrderDetails { get => orderDetails; set => orderDetails = value; }
 
+        public Order() { }
         public Order(Client client, OrderDetails orderDetails)
         {
             this.client = client;
@@ -27,12 +28,13 @@ namespace Homework5
         public override bool Equals(object obj)
         {
             Order order = obj as Order;
-            return this.client == order.client && this.orderDetails.Equals(order.orderDetails);
+            Console.WriteLine("Hi Equals() called!");
+            return this.client.Name == order.client.Name && this.orderDetails.Equals(order.orderDetails);
         }
 
         public override string ToString()
         {
-            return "NO." + no + " Client: " + client.Name + " " + createTime + "\n" + orderDetails.ToString();
+            return "NO." + id + " Client: " + client.Name + " " + createTime + "\n" + orderDetails.ToString();
         }
 
         public int CompareTo(object obj)
@@ -41,7 +43,7 @@ namespace Homework5
 
             if (order == null) { throw new System.ArgumentException(); }
 
-            return this.NO.CompareTo(order.NO);
+            return this.ID.CompareTo(order.ID);
         }
     }
 }

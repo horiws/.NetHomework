@@ -11,11 +11,12 @@ namespace Homework5
         static void Main(string[] args)
         {
             //create the first order
-            List<Cargo> cargos1 = new List<Cargo>();
-
-            cargos1.Add(new Cargo("Perfume", 2, 340));
-            cargos1.Add(new Cargo("Shoes", 3, 780));
-            cargos1.Add(new Cargo("Lipstick", 1, 180.5));
+            List<Cargo> cargos1 = new List<Cargo>
+            {
+                new Cargo("Perfume", 2, 340),
+                new Cargo("Shoes", 3, 780),
+                new Cargo("Lipstick", 1, 180.5)
+            };
 
             OrderDetails orderDetails1 = new OrderDetails(cargos1);
             Order order1 = new Order(new Client("JK"), orderDetails1);
@@ -37,9 +38,10 @@ namespace Homework5
             orderService.Orders.Sort();
 
             orderService.ModifyOrder(1, "Lipstick", 10);
-            orderService.ModifyOrder(1, "Flower", 5);
 
-            
+            orderService.Export("orders.xml");
+            orderService.Import("orders.xml");
+
             Console.Read();
         }
     }

@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Homework5
 {
-    class OrderDetails
+    public class OrderDetails
     {
         private List<Cargo> cargos;
-        private double amount;//total amount of an entire order
+        private double amount = 0;//total amount of an entire order
         private int kinds;          //how many kinds of cargos
 
+        public OrderDetails() { }
         public OrderDetails(List<Cargo> cargos)
         {
             this.cargos = cargos;
@@ -52,12 +53,12 @@ namespace Homework5
 
         public double GetAmount()
         {
-            double sum = 0;
+            //double sum = 0;
             foreach(Cargo c in cargos)
             {
-                sum += c.Quantity * c.Price;
+                this.amount += c.Quantity * c.Price;
             }
-            return sum;
+            return amount;
         }
     }
 }
