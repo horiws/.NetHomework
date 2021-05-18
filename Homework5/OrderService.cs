@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Homework5
 {
@@ -12,10 +13,12 @@ namespace Homework5
     public class OrderService
     {
         private List<Order> orders;
+        private List<Order> queryOrders;
 
         public OrderService()
         {
             orders = new List<Order>();
+            queryOrders = new List<Order>();
         }
 
         public OrderService(Order order)
@@ -32,7 +35,9 @@ namespace Homework5
             }
         }
 
+        [Key]
         public List<Order> Orders { get => orders; }
+        public List<Order> QueryOrders { get => queryOrders; set => queryOrders = value; }
 
         public bool AddOrder(Order newOrder)
         {
@@ -62,62 +67,93 @@ namespace Homework5
                 throw new ArgumentOutOfRangeException($"There's only {orders.Count()} order(s).");
             }
             orders.Remove(orders[orderID - 1]);
+
+            using(var db = new OrderContext())
+            {
+                var deletedOrder = db.Orders.FirstOrDefault(o => o.ID == orderID);
+                if(deletedOrder != null)
+                {
+                    db.Orders.Remove(deletedOrder);
+                    db.SaveChanges();
+                }
+            }
+
             Console.WriteLine($"The NO.{orderID} order has been deleted.");
         }
 
+        //修改指定货物的数量
         public void ModifyOrder(int orderID, string name, int newQuantity)
         {
             if (orderID > orders.Count())
             {
                 throw new ArgumentOutOfRangeException($"There's only {orders.Count()} order(s).");
             }
-            var cargo = from c in orders[orderID - 1]._OrderDetails._Cargo
-                        where c.Name == name
-                        select c;
-            if (cargo.Count() < 1)
+
+            using(var db = new OrderContext())
             {
-                throw new NotFoundException($"The cargo {name} was not found.");
-            }
-            else
-            {
-                //how to transfer IEnumerable<Cargo> cargo into Cargo cargo
-                foreach (Cargo c in cargo)
+                var cargo = from c in orders[orderID - 1]._OrderDetails._Cargo
+                            where c.Name == name
+                            select c;
+                Cargo modifiedCargo = cargo.FirstOrDefault();
+
+                if (modifiedCargo == null)
                 {
-                    c.Quantity = newQuantity;
+                    throw new NotFoundException($"The cargo {name} was not found.");
                 }
-                Console.WriteLine($"The quantity of the {name} has been modified to {newQuantity}.");
+                else
+                {
+                    modifiedCargo.Quantity = newQuantity;
+                    db.SaveChanges();
+                    //Console.WriteLine($"The quantity of the {name} has been modified to {newQuantity}.");
+                }
+
             }
         }
 
         public List<Order> QueryByOrderID(int orderID)
         {
-            if(orderID > orders.Count())
+            if(orderID > orders.Count() || orderID <1)
             {
                 Console.WriteLine($"There's only {orders.Count()} order(s).");
                 //throw new ArgumentOutOfRangeException($"The NO.{orderID} order does not exist.");
             }
-            var order = orders.Where(o => o.ID == orderID).OrderBy(o => o._OrderDetails.GetAmount());
-            return order.ToList();
+            using(var db = new OrderContext())
+            {
+                var order = db.Orders.Where(o => o.ID == orderID).OrderBy(o => o._OrderDetails.GetAmount());
+                return order.ToList();
+            }
+
         }
 
         public List<Order> QueryByCargo(string cargoName)
         {
-            var order = orders.Where(o => o._OrderDetails._Cargo.Any(c => c.Name == cargoName));
+            using(var db = new OrderContext())
+            {
+                var order = db.Orders.Where(o => o._OrderDetails._Cargo.Any(c => c.Name == cargoName));
+                return order.ToList();
+            }
+            /*
             if (order.ToList().Count() <= 0)
             {
                 Console.WriteLine($"The cargo {cargoName} does not exist.");
             }
-            return order.ToList();
+            */
         }
 
         public List<Order> QueryByClient(string clientName)
         {
-            var order = orders.Where(o => o._Client.Name == clientName);
+            using(var db = new OrderContext())
+            {
+                var order = orders.Where(o => o._Client.Name == clientName);
+                return order.ToList();
+
+            }
+            /*
             if (order.ToList().Count() <= 0)
             {
                 Console.WriteLine($"The order placed by {clientName} does not exist.");
             }
-            return order.ToList();
+            */
         }
 
         public List<Order> QueryByAmount(double lowerLimit, double upperLimit)

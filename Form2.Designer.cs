@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.dgv_cargo = new System.Windows.Forms.DataGridView();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lbl_cargo = new System.Windows.Forms.Label();
             this.tb_cargo = new System.Windows.Forms.TextBox();
@@ -44,11 +45,10 @@
             this.lbl_client = new System.Windows.Forms.Label();
             this.tb_client = new System.Windows.Forms.TextBox();
             this.btn_addOrder = new System.Windows.Forms.Button();
-            this.cargoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cargoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -96,6 +96,11 @@
             this.dgv_cargo.TabIndex = 2;
             this.dgv_cargo.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgv_cargo_RowPostPaint);
             // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "总价";
+            this.Column5.Name = "Column5";
+            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.lbl_cargo);
@@ -130,6 +135,7 @@
             this.tb_cargo.Name = "tb_cargo";
             this.tb_cargo.Size = new System.Drawing.Size(100, 28);
             this.tb_cargo.TabIndex = 1;
+            this.tb_cargo.Text = "apple";
             // 
             // lbl_quantity
             // 
@@ -148,6 +154,7 @@
             this.tb_quantity.Name = "tb_quantity";
             this.tb_quantity.Size = new System.Drawing.Size(100, 28);
             this.tb_quantity.TabIndex = 3;
+            this.tb_quantity.Text = "1";
             // 
             // lbl_price
             // 
@@ -167,6 +174,7 @@
             this.tb_price.Name = "tb_price";
             this.tb_price.Size = new System.Drawing.Size(100, 28);
             this.tb_price.TabIndex = 5;
+            this.tb_price.Text = "1";
             // 
             // btn_addCargo
             // 
@@ -190,7 +198,6 @@
             this.btn_deleteCargo.TabIndex = 1;
             this.btn_deleteCargo.Text = "删除货物";
             this.btn_deleteCargo.UseVisualStyleBackColor = true;
-            //this.btn_deleteCargo.Click += new System.EventHandler(this.btn_deleteCargo_Click);
             // 
             // flowLayoutPanelBottom
             // 
@@ -234,10 +241,6 @@
             this.btn_addOrder.UseVisualStyleBackColor = true;
             this.btn_addOrder.Click += new System.EventHandler(this.btn_addOrder_Click);
             // 
-            // cargoBindingSource
-            // 
-            this.cargoBindingSource.DataSource = typeof(Homework5.Cargo);
-            // 
             // nameDataGridViewTextBoxColumn
             // 
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
@@ -256,10 +259,9 @@
             this.priceDataGridViewTextBoxColumn.HeaderText = "单价";
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
             // 
-            // Column5
+            // cargoBindingSource
             // 
-            this.Column5.HeaderText = "总价";
-            this.Column5.Name = "Column5";
+            this.cargoBindingSource.DataSource = typeof(Homework5.Cargo);
             // 
             // Form2
             // 

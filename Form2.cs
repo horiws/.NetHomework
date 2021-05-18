@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Homework8
 {
@@ -33,6 +35,7 @@ namespace Homework8
         }
 
         //添加货物
+        /*
         private void btn_addCargo_Click(object sender, EventArgs e)
         {
             Cargo newCargo = new Cargo(
@@ -47,6 +50,27 @@ namespace Homework8
             cargoBindingSource.ResetBindings(false);
             
         }
+        */
+
+        //添加货物 数据库
+        private void btn_addCargo_Click(object sender, EventArgs e)
+        {
+
+            using (var db = new OrderContext()) {
+                Cargo newCargo = new Cargo(
+                    tb_cargo.Text, int.Parse(tb_quantity.Text), double.Parse(tb_price.Text));
+                this.order._OrderDetails._Cargo.Add(newCargo);
+
+                db.Cargos.Add(newCargo);
+                db.SaveChanges();
+
+            }
+            cargoBindingSource.DataSource = this.order._OrderDetails._Cargo;
+
+            cargoBindingSource.ResetBindings(false);
+
+        }
+
         /*
         //删除选中货物
         private void btn_deleteCargo_Click(object sender, EventArgs e)
@@ -72,8 +96,15 @@ namespace Homework8
         {
             order._Client.Name = tb_client.Text;
             form1.GetOrderService.AddOrder(this.order);
-            form1.orderBindingSource.ResetBindings(false);
 
+            //向数据库添加Order
+            using (var db = new OrderContext())
+            {
+                db.Orders.Add(this.order);
+                db.SaveChanges();
+            }
+
+            form1.orderBindingSource.ResetBindings(false);
             MessageBox.Show("订单添加成功！");
 
             this.Close();

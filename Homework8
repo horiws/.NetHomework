@@ -15,11 +15,16 @@ namespace Homework8
     {
         private OrderService orderService;
         public OrderService GetOrderService { get => orderService; }
-        //private List<Order> queryOrders;//写在OrderService 保存查询到的订单
+        private List<Order> queryOrders;
 
-        public string Keyword;
-        //public string Keyword { get; set; }
+
+        //public static BindingSource GetBindingSource => Form1.orderBindingSource;
+
+        public string keyword { get; set; }
         public string[] queryItems = {"订单号","货物名","客户名" };
+
+        /*public static OrderDetails NewOrderDetails{ get => newOrderDetails;
+            set => newOrderDetails = value; }*/
 
         public Form1()
         {
@@ -27,10 +32,10 @@ namespace Homework8
             InitializeComponent();
 
             orderService = new OrderService();
-            //queryOrders = new List<Order>();
+            queryOrders = new List<Order>();
 
             //数据绑定
-            this.textBox1.DataBindings.Add("Text", this, Keyword);
+            textBox_query.DataBindings.Add("Text", this, "keyword");
             cb_queryItems.DataSource = queryItems;
 
             orderBindingSource.DataSource = orderService.Orders;
@@ -49,63 +54,46 @@ namespace Homework8
         //删除订单
         private void btn_delete_Click(object sender, EventArgs e)
         {
-            int deletedOrderID = int.Parse(dgv_order.SelectedCells[0].Value.ToString());
-            this.orderService.DeleteOrder(deletedOrderID);
+            int deletedOrder = int.Parse(dgv_order.SelectedCells[0].Value.ToString());
+            this.orderService.DeleteOrder(deletedOrder);
 
-            MessageBox.Show($"{deletedOrderID}号订单删除成功。");
+            MessageBox.Show($"{deletedOrder}号订单删除成功。");
 
             orderBindingSource.DataSource = orderService.Orders;
             orderBindingSource.ResetBindings(false);
         }
 
-        //按关键词查询订单
         private void btn_query_Click(object sender, EventArgs e)
         {
             //string selectedItem = cb_queryItems.SelectedItem.ToString();
             //keyword = textBox_query.Text;
-            orderBindingSource.DataSource = orderService.QueryOrders;
+            orderBindingSource.DataSource = queryOrders;
             int selectedIndex = cb_queryItems.SelectedIndex;
 
             switch (selectedIndex)
             {
-                //按订单号查询
                 case 0:
 
-                    orderService.QueryOrders = orderService.QueryByOrderID(int.Parse(Keyword));
-                    if(orderService.QueryOrders.Count() == 0)
-                    {
-                        MessageBox.Show($"NO.{Keyword} orders was not found.");
-                    }
+                    queryOrders = orderService.QueryByOrderID(int.Parse(keyword));
+                    orderBindingSource.ResetBindings(false);
                     break;
-                    
-                //按货物名查询
+
                 case 1:
 
-                    orderService.QueryOrders = orderService.QueryByCargo(Keyword);
-                    if (orderService.QueryOrders.Count() == 0)
-                    {
-                        MessageBox.Show($"Order(s) containing {Keyword} was not found.");
-                    }
-                    //测试用 queryOrders数量为0
-                    //textBox1.Text = orderService.QueryOrders.Count().ToString();
+                    queryOrders = orderService.QueryByCargo(keyword);
+                    orderBindingSource.ResetBindings(false);
                     break;
 
-                //按客户名查询
                 case 2:
 
-                    orderService.QueryOrders = orderService.QueryByClient(Keyword);
-                    if (orderService.QueryOrders.Count() == 0)
-                    {
-                        MessageBox.Show($"Order(s) placed by {Keyword} was not found.");
-                    }
+                    queryOrders = orderService.QueryByClient(keyword);
+                    orderBindingSource.ResetBindings(false);
                     break;
+
+                //default:
             }
-
-            orderBindingSource.ResetBindings(false);
-
         }
 
-        //点击单元格显示对应订单明细
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int selectedOrder = int.Parse(dgv_order.Rows[e.RowIndex].Cells[0].Value.ToString());
@@ -160,21 +148,14 @@ namespace Homework8
 
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 string fileName = openFileDialog.FileName;
-               // List<Order> importOrders = this.orderService.Import(fileName);
+                List<Order> importOrders = this.orderService.Import(fileName);
 
-              //  orderBindingSource.DataSource = importOrders;
+                orderBindingSource.DataSource = importOrders;
                 orderBindingSource.ResetBindings(false);
 
                 MessageBox.Show("订单已导入。");
 
             }
-        }
-
-        //刷新查看全部订单
-        private void btn_viewAll_Click(object sender, EventArgs e)
-        {
-            orderBindingSource.DataSource = orderService.Orders;
-            orderBindingSource.ResetBindings(false);
         }
     }
 }

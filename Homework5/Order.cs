@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace Homework5
         private Client client;
         private OrderDetails orderDetails;
 
+        [Key]
         public int ID { get => id; set => id = value; }
         public Client _Client { get => client; set => client = value; }
         public OrderDetails _OrderDetails { get => orderDetails; set => orderDetails = value; }
