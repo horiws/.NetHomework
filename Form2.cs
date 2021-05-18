@@ -34,24 +34,6 @@ namespace Homework8
             tb_client.DataBindings.Add("Text", order._Client,"Name");//报异常：Name值不能为null
         }
 
-        //添加货物
-        /*
-        private void btn_addCargo_Click(object sender, EventArgs e)
-        {
-            Cargo newCargo = new Cargo(
-                tb_cargo.Text, int.Parse(tb_quantity.Text), double.Parse(tb_price.Text));
-            this.order._OrderDetails._Cargo.Add(newCargo);
-
-            cargoBindingSource.DataSource = this.order._OrderDetails._Cargo;
-
-            //动态生成货物序号
-            //dgv_cargo.Rows[order._OrderDetails._Cargo.Count -1].Cells[0].Value = order._OrderDetails._Cargo.Count;
-
-            cargoBindingSource.ResetBindings(false);
-            
-        }
-        */
-
         //添加货物 数据库
         private void btn_addCargo_Click(object sender, EventArgs e)
         {
